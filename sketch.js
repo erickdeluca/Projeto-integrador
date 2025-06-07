@@ -4,6 +4,7 @@ class Star {
         this.x = random(-width, width);
         this.y = random(-height, height);
         this.z =  random(width);
+        this.pz = this.z;
     }
 
     update(){
@@ -12,6 +13,8 @@ class Star {
             this.z = width;
             this.x = random(-width, width);
             this.y = random(-height, height);
+            this.pz = this.z;
+
         }
     }
     
@@ -24,7 +27,14 @@ class Star {
         let sy = map(this.y / this.z, 0, 1, 0, width);
 
         let r = map(this.z, 0, width, 16, 0 );
-        circle(sx, sy, r);
+        // circle(sx, sy, r);
+
+        let px = map(this.x / this.pz, 0, 1, 0, width);
+        let py = map(this.y / this.pz, 0, 1, 0, height);
+
+        this.pz = this.z;
+        stroke(255);
+        line(px, py, sx, sy);
     }
 }
 
@@ -38,7 +48,7 @@ function setup() {
 }
 
 function draw() {
-    speed = map(mouseX, 0, width, 0, 20);
+    speed = map(mouseX, 0, width, 0, 50);
     background(0);
     translate(width/2, height/2);
     for(let i = 0; i < stars.length; i++){
