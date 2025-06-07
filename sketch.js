@@ -1,34 +1,41 @@
 class Star {
     constructor() {
-        this.x = random(0, width);
-        this.y = random(0, height);
-        this.z = random(0, width);
+        this.x = random(-width, width);
+        this.y = random(-height, height);
+        this.z =  random(width);
     }
-    
-    
+
     update(){
-        
+        this.z -= 1;
+        if(this.z < 1){
+            this.z = width;
+            this.x = random(-width, width);
+            this.y = random(-height, height);
+        }
     }
     
     show() {
         let raio = 2;
         fill(255); 
         noStroke();
-        circle(this.x, this.y, raio * 2);
+        let sx = map(this.x / this.z, 0, 1, 0, width);
+        let sy = map(this.y / this.z, 0, 1, 0, width);
+        circle(sx, sy, raio * 2);
     }
 }
 
 let stars =  [];
 
 function setup() {
-    createCanvas(400, 400);
-    for(let i = 0; i < 100; i++){
+    createCanvas(800, 800);
+    for(let i = 0; i < 800; i++){
       stars[i] = new Star();
     }
 }
 
 function draw() {
     background(0);
+    translate(width/2, height/2);
     for(let i = 0; i < stars.length; i++){
     stars[i].update();
     stars[i].show();
