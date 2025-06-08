@@ -1,14 +1,10 @@
 let stars = [];
-let obstacle = [];
 let speed = 0;
-let systemsOnline = false;
-let shieldsActive = false;
-let warpDriveReady = false;
 let slider;
 
 function setup() {
   createCanvas(800, 800);
-  for (let i = 0; i < 800; i++) {
+  for (let i = 0; i < 2000; i++) {
     stars[i] = {
       x: random(-width, width),
       y: random(-height, height),
@@ -18,19 +14,7 @@ function setup() {
     stars[i].pz = stars[i].z;
   }
 
-  for (let i = 0; i < 3; i++) {
-  obstacle[i] = {
-      obstacleX: random(-width, width),
-      obstacleY: random(-height, height),
-      obstacleZ: random(),
-      obstaclePz: null
-    };
-    obstacle[i].obstaclePz = obstacle[i].obstacleZ;
-  }
-  
-  
   controleVelocidade();
-  
   textAlign(CENTER, CENTER);
   textSize(32);
 }
@@ -38,10 +22,8 @@ function setup() {
 function draw() {
   speed = map(slider.value(), 0, width, 0, 70);
   background(0);
-
   translate(width / 2, height / 2);
 
-  // Efeito das estrelas
   for (let i = 0; i < stars.length; i++) {
     let star = stars[i];
 
@@ -62,42 +44,14 @@ function draw() {
 
     star.pz = star.z;
 
-    // fill(255);
-    // noStroke();
-    // ellipse(sx, sy, r, r);
+    fill(255);
+    noStroke();
 
     stroke(255);
     line(px, py, sx, sy);
   }
 
-  //surgimento de inimigoss
-  for (let i = 0; i < obstacle.length; i++) {
-    let enemy = obstacle[i];
-
-    enemy.obstacleZ -= speed;
-    if (enemy.obstacleZ < 1) {
-        enemy.obstacleZ = width;
-        enemy.obstacleX = random(-100, 100);
-        enemy.obstacleY = random(-100, 100);
-        enemy.obstaclePz = enemy.obstacleZ;
-    }
-
-    if(speed >= 15.00){
-        enemy -= enemy;
-    }
-
-    let enemySx = map(enemy.obstacleX / enemy.obstacleZ, 0, 1, 0, width);
-    let enemySy = map(enemy.obstacleY / enemy.obstacleZ, 0, 1, 0, height);
-    let enemyR = map(enemy.obstacleZ, 0, width, 16, 0);
-
-    enemy.obstaclePz = enemy.obstacleZ;
-
-    fill(252, 3, 3);
-    noStroke();
-    rect(enemySx, enemySy, enemyR * 2, enemyR * 2);
-    }
-    
-    painelControle();
+  painelControle();
 }
 
 function controleVelocidade() {
@@ -119,12 +73,11 @@ function painelControle() {
   stroke(0, 150, 200);
   strokeWeight(2);
   rect(-180, 250, 360, 150, 10);
-  
-  if(speed.toFixed(2) == 52.50) {
-    fill(255)
+
+  fill(255);
+  if (speed.toFixed(2) == 52.50) {
     text('Velocidade máxima', 0, 300);
   } else {
-    fill(255)
     text(speed.toFixed(2), 0, 300);
   }
 }
