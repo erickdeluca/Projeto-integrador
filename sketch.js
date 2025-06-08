@@ -13,12 +13,12 @@ function setup() {
     stars[i].pz = stars[i].z;
   }
   slider = createSlider(0, 400, 0);
-  slider.position(width / 2 - 65, 650);
+  slider.position(width / 2 - 65, 660);
 
 }
 
 function draw() {
-  speed = map(slider.value(), 0, width, 0, 50);
+  speed = map(slider.value(), 0, width, 0, 70);
   background(0);
 
   translate(width / 2, height / 2);
@@ -56,6 +56,12 @@ function draw() {
   noStroke();
   circle(0, 1200, 2000);
 
-  
+  fill(29, 143, 54);
+  stroke(0);
+  rect(-100, 230, 200, 120);
 
+  fill(0);
+  noStroke();
+  textSize(20);
+  text("Velocidade: ",-48, 255);
 }
