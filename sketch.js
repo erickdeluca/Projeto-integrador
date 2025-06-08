@@ -1,4 +1,5 @@
 let stars = [];
+let enemies = [];
 let speed = 0;
 let systemsOnline = false;
 let shieldsActive = false;
@@ -15,6 +16,16 @@ function setup() {
       pz: null
     };
     stars[i].pz = stars[i].z;
+  }
+
+  for (let i = 0; i < 3; i++) {
+  enemies[i] = {
+      ex: random(-width, width),
+      ey: random(-height, height),
+      ez: random(),
+      epz: null
+    };
+    enemies[i].epz = enemies[i].ez;
   }
   
   
@@ -51,15 +62,42 @@ function draw() {
 
     star.pz = star.z;
 
-    fill(255);
-    noStroke();
-    ellipse(sx, sy, r, r);
+    // fill(255);
+    // noStroke();
+    // ellipse(sx, sy, r, r);
 
     stroke(255);
     line(px, py, sx, sy);
   }
 
-  painelControle();
+  //surgimento de inimigoss
+  for (let i = 0; i < enemies.length; i++) {
+    let enemy = enemies[i];
+
+    enemy.ez -= speed;
+    if (enemy.ez < 1) {
+        enemy.ez = width;
+        enemy.ex = random(-100, 100);
+        enemy.ey = random(-100, 100);
+        enemy.epz = enemy.ez;
+    }
+
+    if(speed >= 15.00){
+        enemy -= enemy;
+    }
+
+    let esx = map(enemy.ex / enemy.ez, 0, 1, 0, width);
+    let esy = map(enemy.ey / enemy.ez, 0, 1, 0, height);
+    let er = map(enemy.ez, 0, width, 16, 0);
+
+    enemy.epz = enemy.ez;
+
+    fill(252, 3, 3);
+    noStroke();
+    rect(esx, esy, er * 2, er * 2);
+    }
+    
+    painelControle();
 }
 
 function controleVelocidade() {
