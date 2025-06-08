@@ -12,11 +12,15 @@ function setup() {
     };
     stars[i].pz = stars[i].z;
   }
+  slider = createSlider(0, 400, 0);
+  slider.position(width / 2 - 65, 650);
+
 }
 
 function draw() {
-  speed = map(mouseX, 0, width, 0, 50);
+  speed = map(slider.value(), 0, width, 0, 50);
   background(0);
+
   translate(width / 2, height / 2);
 
   for (let i = 0; i < stars.length; i++) {
@@ -46,4 +50,12 @@ function draw() {
     stroke(255);
     line(px, py, sx, sy);
   }
+//desenhando o painel de controle e estrutura da nave
+
+  fill(128, 128, 128);
+  noStroke();
+  circle(0, 1200, 2000);
+
+  
+
 }
