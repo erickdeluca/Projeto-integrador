@@ -1,5 +1,5 @@
 let stars = [];
-let enemies = [];
+let obstacle = [];
 let speed = 0;
 let systemsOnline = false;
 let shieldsActive = false;
@@ -19,13 +19,13 @@ function setup() {
   }
 
   for (let i = 0; i < 3; i++) {
-  enemies[i] = {
-      ex: random(-width, width),
-      ey: random(-height, height),
-      ez: random(),
-      epz: null
+  obstacle[i] = {
+      obstacleX: random(-width, width),
+      obstacleY: random(-height, height),
+      obstacleZ: random(),
+      obstaclePz: null
     };
-    enemies[i].epz = enemies[i].ez;
+    obstacle[i].obstaclePz = obstacle[i].obstacleZ;
   }
   
   
@@ -71,30 +71,30 @@ function draw() {
   }
 
   //surgimento de inimigoss
-  for (let i = 0; i < enemies.length; i++) {
-    let enemy = enemies[i];
+  for (let i = 0; i < obstacle.length; i++) {
+    let enemy = obstacle[i];
 
-    enemy.ez -= speed;
-    if (enemy.ez < 1) {
-        enemy.ez = width;
-        enemy.ex = random(-100, 100);
-        enemy.ey = random(-100, 100);
-        enemy.epz = enemy.ez;
+    enemy.obstacleZ -= speed;
+    if (enemy.obstacleZ < 1) {
+        enemy.obstacleZ = width;
+        enemy.obstacleX = random(-100, 100);
+        enemy.obstacleY = random(-100, 100);
+        enemy.obstaclePz = enemy.obstacleZ;
     }
 
     if(speed >= 15.00){
         enemy -= enemy;
     }
 
-    let esx = map(enemy.ex / enemy.ez, 0, 1, 0, width);
-    let esy = map(enemy.ey / enemy.ez, 0, 1, 0, height);
-    let er = map(enemy.ez, 0, width, 16, 0);
+    let enemySx = map(enemy.obstacleX / enemy.obstacleZ, 0, 1, 0, width);
+    let enemySy = map(enemy.obstacleY / enemy.obstacleZ, 0, 1, 0, height);
+    let enemyR = map(enemy.obstacleZ, 0, width, 16, 0);
 
-    enemy.epz = enemy.ez;
+    enemy.obstaclePz = enemy.obstacleZ;
 
     fill(252, 3, 3);
     noStroke();
-    rect(esx, esy, er * 2, er * 2);
+    rect(enemySx, enemySy, enemyR * 2, enemyR * 2);
     }
     
     painelControle();
