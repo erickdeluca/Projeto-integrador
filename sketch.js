@@ -1,5 +1,9 @@
 let stars = [];
 let speed = 0;
+let systemsOnline = false;
+let shieldsActive = false;
+let warpDriveReady = false;
+let slider;
 
 function setup() {
   createCanvas(800, 800);
@@ -12,9 +16,12 @@ function setup() {
     };
     stars[i].pz = stars[i].z;
   }
-  slider = createSlider(0, 400, 0);
-  slider.position(width / 2 - 65, 660);
-
+  
+  
+  controleVelocidade();
+  
+  textAlign(CENTER, CENTER);
+  textSize(32);
 }
 
 function draw() {
@@ -23,6 +30,7 @@ function draw() {
 
   translate(width / 2, height / 2);
 
+  // Efeito das estrelas
   for (let i = 0; i < stars.length; i++) {
     let star = stars[i];
 
@@ -50,18 +58,35 @@ function draw() {
     stroke(255);
     line(px, py, sx, sy);
   }
-//desenhando o painel de controle e estrutura da nave
 
-  fill(128, 128, 128);
+  painelControle();
+}
+
+function controleVelocidade() {
+  slider = createSlider(0, 600, 0);
+  slider.position(width / 2 - 70, 750);
+}
+
+function painelControle() {
+  fill(40, 40, 50);
   noStroke();
   circle(0, 1200, 2000);
 
-  fill(29, 143, 54);
-  stroke(0);
-  rect(-100, 230, 200, 120);
+  fill(20, 20, 30);
+  stroke(50, 100, 150);
+  strokeWeight(3);
+  rect(-200, 230, 400, 200, 20);
 
-  fill(0);
-  noStroke();
-  textSize(20);
-  text("Velocidade: ",-48, 255);
+  fill(0, 20, 40);
+  stroke(0, 150, 200);
+  strokeWeight(2);
+  rect(-180, 250, 360, 150, 10);
+  
+  if(speed.toFixed(2) == 52.50) {
+    fill(255)
+    text('Velocidade máxima', 0, 300);
+  } else {
+    fill(255)
+    text(speed.toFixed(2), 0, 300);
+  }
 }
